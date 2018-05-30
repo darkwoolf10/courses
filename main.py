@@ -2,6 +2,7 @@
 import pygame
 from itertools import tee
 import Turtle
+import math
 
 pygame.init()
 win = pygame.display.set_mode((500, 500))
@@ -24,7 +25,6 @@ image = turtleImage
 background = pygame.image.load('bg.jpg')
 
 lines = []
-pen = False
 
 def pairwise(iterable):
     a, b = tee(iterable)
@@ -45,14 +45,17 @@ def ask_for_command():
     if command == "exit()":
         print("Good bye")
         run = False
-    if command == "fw()" and x > 5 and x < 500 and y > 5 and y < 500:
-        print("forward")
-        left = False
-        right = False
-        Up = True
-        Down = False
-        hero.y -= speed
+    if command.startswith("fd "):
+        destination = int(command[3:])
+        print(math.cos(hero.angle) * destination)
+        print(math.sin(hero.angle) * destination)
+        hero.y -= math.cos(hero.angle) * destination
+        hero.x -= math.sin(hero.angle) * destination
+        print(hero.y, hero.x)
         print(lines)
+    if command.startswith("bk "):
+        pass
+
     if command == "down()" and x > 5 and x < 500 and y > 5 and y < 500:
         left = False
         right = False
@@ -63,7 +66,12 @@ def ask_for_command():
     if command.startswith("lt "):
         angle = int(command[3:])
         hero.rotate(angle)
-    if True:
+        print(hero.angle)
+    if command.startswith("rt "):
+        angle = int(command[3:])
+        hero.rotate(-angle)
+        print(hero.angle)
+    if command == "pen()":
         lines.append((hero.x + 15, hero.y + 15))
         print(lines)
     else:

@@ -8,6 +8,7 @@ class Turtle():
         self.height = height
         self.color = color
         self.image = image
+        self.angle = 0
 
     def draw_turtle(self, win):
         win.blit(self.image, (self.x, self.y))
@@ -17,3 +18,5 @@ class Turtle():
 
     def rotate(self, angle):
         self.image = pygame.transform.rotate(self.image, angle)
+        self.angle += angle
+        self.angle = self.angle % 360
