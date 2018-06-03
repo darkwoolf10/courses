@@ -3,12 +3,12 @@ import math
 from settings import *
 import pygame
 from itertools import tee
+import numpy as np
 
 class App():
     def __init__(self):
-        self.turtleImage = pygame.image.load(HERO_IMAGE)
         self.background = pygame.image.load(BACKGROUND)
-        self.hero = Turtle.Turtle(x, y, width, height, (0, 255, 0), self.turtleImage)
+        self.hero = Turtle.Turtle(x, y, width, height, (0, 255, 0), "turtle.png")
         self.lines = []
         self.win = pygame.display.set_mode((500, 500))
         self.run = True
@@ -26,12 +26,12 @@ class App():
             self.run = False
         if command.startswith("fd "):
             destination = int(command[3:])
-            # print(math.cos(self.hero.angle) * destination)
-            # print(math.sin(self.hero.angle) * destination)
-            # self.hero.y -= math.cos(self.hero.angle) * destination
-            # self.hero.x -= math.sin(self.hero.angle) * destination
-            # print(self.hero.y, self.hero.x)
-            # print(self.lines)
+            print("x = " + str(-destination * np.sin(np.deg2rad(self.hero.angle))))
+            print("y = " + str(-destination * np.cos(np.deg2rad(self.hero.angle))))
+            self.hero.x += -destination * np.sin(np.deg2rad(self.hero.angle))
+            self.hero.y += -destination * np.cos(np.deg2rad(self.hero.angle))
+            print(self.hero.y, self.hero.x)
+            print(self.lines)
         if command.startswith("bk "):
             destination = int(command[3:])
             pass
@@ -51,8 +51,12 @@ class App():
             self.hero.rotate(-angle)
             print(self.hero.angle)
         if command == "pen()":
-            self.lines.append((self.hero.x + 15, self.hero.y + 15))
-            print(self.lines)
+            if pen == False:
+                pen = True
+                self.lines.append((self.hero.x + 15, self.hero.y + 15))
+                print(self.lines)
+            else:
+                pen = False
         else:
             self.lines.append(None)
 

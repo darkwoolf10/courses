@@ -7,7 +7,7 @@ class Turtle():
         self.width = width
         self.height = height
         self.color = color
-        self.image = image
+        self.image = pygame.image.load(image)
         self.angle = 0
 
     def draw_turtle(self, win):
