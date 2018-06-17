@@ -3,7 +3,6 @@ import math
 from settings import *
 import pygame
 from itertools import tee
-import numpy as np
 
 class App():
     def __init__(self):
@@ -26,15 +25,13 @@ class App():
             self.run = False
         if command.startswith("fd "):
             destination = int(command[3:])
-            print("x = " + str(-destination * np.sin(np.deg2rad(self.hero.angle))))
-            print("y = " + str(-destination * np.cos(np.deg2rad(self.hero.angle))))
-            self.hero.x += -destination * np.sin(np.deg2rad(self.hero.angle))
-            self.hero.y += -destination * np.cos(np.deg2rad(self.hero.angle))
-            print(self.hero.y, self.hero.x)
-            print(self.lines)
+            self.hero.x += -destination * math.sin(math.radians(self.hero.angle))
+            self.hero.y += -destination * math.cos(math.radians(self.hero.angle))
         if command.startswith("bk "):
             destination = int(command[3:])
-            pass
+            self.hero.rotate(180)
+            self.hero.x += -destination * math.sin(math.radians(self.hero.angle))
+            self.hero.y += -destination * math.cos(math.radians(self.hero.angle))
         if command == "down()" and x > 5 and x < 500 and y > 5 and y < 500:
             left = False
             right = False

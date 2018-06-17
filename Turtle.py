@@ -9,6 +9,7 @@ class Turtle():
         self.color = color
         self.image = pygame.image.load(image)
         self.angle = 0
+        self.pen = False
 
     def draw_turtle(self, win):
         win.blit(self.image, (self.x, self.y))
