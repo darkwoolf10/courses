@@ -19,6 +19,6 @@ class Turtle():
         pygame.draw.line(win, self.color, start_coords, end_coords, 3)
 
     def rotate(self, angle):
-        self.image = pygame.transform.rotate(self.default_image, angle)
         self.angle += angle
+        self.image = pygame.transform.rotate(self.default_image, self.angle)
         self.angle = self.angle % 360
